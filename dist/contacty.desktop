@@ -1,0 +1,16 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Comment=Contact book management system
+Comment[pt_BR]=Sistema de gerenciamento de listas de contatos
+Description=Contact book management system
+Description[pt_BR]=Sistema de gerenciamento de listas de contatos
+Exec=/usr/local/bin/contacty
+GenericName=Contacty
+Icon=application-x-contacty
+MimeType=application/x-contacty;
+Name=Contacty
+Path=/usr/share/contacty
+Terminal=false
+Type=Application
+Categories=Utility;
