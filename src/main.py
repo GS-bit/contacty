@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License along with thi
 """
 
 import sys
-from mainwindow import *
+from gui.mainwindow import *
 from PyQt6.QtWidgets import QApplication
 import locale, gettext
 from os.path import join

@@ -1,8 +1,8 @@
-from centralwidget import CentralWidget
-from aboutdialog import AboutDialog
-from sortdialog import SortDialog
-from finddialog import FindDialog
-from insertiondialog import InsertionDialog
+from gui.centralwidget import CentralWidget
+from gui.aboutdialog import AboutDialog
+from gui.sortdialog import SortDialog
+from gui.finddialog import FindDialog
+from gui.insertiondialog import InsertionDialog
 from functools import partial
 
 from PyQt6.QtWidgets import (

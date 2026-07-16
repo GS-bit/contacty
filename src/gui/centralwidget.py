@@ -1,6 +1,6 @@
 from contactbook import Contactbook
-from contactdialog import ContactDialog
-from contactlistwidget import ContactListWidget
+from gui.contactdialog import ContactDialog
+from gui.contactlistwidget import ContactListWidget
 from history import *
 
 
