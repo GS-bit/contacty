@@ -4,7 +4,7 @@ from contactlistwidget import ContactListWidget
 from history import *
 
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QWidget,
 	QPushButton,
 	QHBoxLayout,
@@ -58,26 +58,26 @@ class CentralWidget(QWidget): # TODO: seria bom adicionar os shortcuts do mainwi
     """
     def _createButtons(self):
         self.upwardBtn = QPushButton()
-        self.upwardBtn.setIcon(self.style().standardIcon(getattr(QStyle, "SP_ArrowUp")))
+        self.upwardBtn.setIcon(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_ArrowUp")))
         self.upwardBtn.clicked.connect(self.moveUpwardEvent)
         self.upwardBtn.setEnabled(False)
 
         self.downwardBtn = QPushButton()
-        self.downwardBtn.setIcon(self.style().standardIcon(getattr(QStyle, "SP_ArrowDown")))
+        self.downwardBtn.setIcon(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_ArrowDown")))
         self.downwardBtn.clicked.connect(self.moveDownwardEvent)
         self.downwardBtn.setEnabled(False)
 
         self.newContactBtn = QPushButton(_("New contact"))
-        self.newContactBtn.setIcon(self.style().standardIcon(getattr(QStyle, "SP_FileDialogNewFolder")))
+        self.newContactBtn.setIcon(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_FileDialogNewFolder")))
         self.newContactBtn.clicked.connect(self.newContactEvent)
 
         self.updateContactBtn = QPushButton(_("Edit contact"))
-        self.updateContactBtn.setIcon(self.style().standardIcon(getattr(QStyle, "SP_FileLinkIcon")))
+        self.updateContactBtn.setIcon(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_FileLinkIcon")))
         self.updateContactBtn.clicked.connect(self.editContactEvent)
         self.updateContactBtn.setEnabled(False)
 
         self.deleteContactBtn = QPushButton(_("Delete contact"))
-        self.deleteContactBtn.setIcon(self.style().standardIcon(getattr(QStyle, "SP_DialogDiscardButton")))
+        self.deleteContactBtn.setIcon(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_DialogDiscardButton")))
         self.deleteContactBtn.clicked.connect(self.deleteContactEvent)
         self.deleteContactBtn.setEnabled(False)
 

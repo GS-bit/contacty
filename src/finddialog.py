@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QDialog,
     QLabel,
     QDialogButtonBox,
@@ -7,6 +7,8 @@ from PyQt5.QtWidgets import (
     QMessageBox,
     QFrame
 )
+
+from PyQt6.QtCore import Qt
 
 """
 FindDialog is a dialog thought to be used for setting how the searchings shall be done.
@@ -27,42 +29,42 @@ class FindDialog(QDialog):
         self.considerLabel = QLabel(_('Consider in the searches:'))
 
         self.nameCheckbox = QCheckBox(_('Name'))
-        self.nameCheckbox.setCheckState(states[0])
+        self.nameCheckbox.setCheckState(Qt.CheckState.Checked if states[0] else Qt.CheckState.Unchecked)
         self.nameCheckbox.setTristate(False)
 
         self.phoneCheckbox = QCheckBox(_('Phone'))
-        self.phoneCheckbox.setCheckState(states[1])
+        self.phoneCheckbox.setCheckState(Qt.CheckState.Checked if states[1] else Qt.CheckState.Unchecked)
         self.phoneCheckbox.setTristate(False)
 
         self.emailCheckbox = QCheckBox(_('Email'))
-        self.emailCheckbox.setCheckState(states[2])
+        self.emailCheckbox.setCheckState(Qt.CheckState.Checked if states[2] else Qt.CheckState.Unchecked)
         self.emailCheckbox.setTristate(False)
 
         self.websiteCheckbox = QCheckBox(_('Website'))
-        self.websiteCheckbox.setCheckState(states[3])
+        self.websiteCheckbox.setCheckState(Qt.CheckState.Checked if states[3] else Qt.CheckState.Unchecked)
         self.websiteCheckbox.setTristate(False)
 
         self.addressCheckbox = QCheckBox(_('Address'))
-        self.addressCheckbox.setCheckState(states[4])
+        self.addressCheckbox.setCheckState(Qt.CheckState.Checked if states[4] else Qt.CheckState.Unchecked)
         self.addressCheckbox.setTristate(False)
 
         self.cityCheckbox = QCheckBox(_('City'))
-        self.cityCheckbox.setCheckState(states[5])
+        self.cityCheckbox.setCheckState(Qt.CheckState.Checked if states[5] else Qt.CheckState.Unchecked)
         self.cityCheckbox.setTristate(False)
 
         self.infoCheckbox = QCheckBox(_('Additional information'))
-        self.infoCheckbox.setCheckState(states[6])
+        self.infoCheckbox.setCheckState(Qt.CheckState.Checked if states[6] else Qt.CheckState.Unchecked)
         self.infoCheckbox.setTristate(False)
 
         self.frame = QFrame()
-        self.frame.setFrameShape(QFrame.HLine)
-        self.frame.setFrameShadow(QFrame.Sunken)
+        self.frame.setFrameShape(QFrame.Shape.HLine)
+        self.frame.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.caseCheckbox = QCheckBox(_("Differentiate upper and lower cases"))
-        self.caseCheckbox.setCheckState(states[7])
+        self.caseCheckbox.setCheckState(Qt.CheckState.Checked if states[7] else Qt.CheckState.Unchecked)
         self.caseCheckbox.setTristate(False)
 
-        buttonBox = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel, self)
+        buttonBox = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel, self)
         buttonBox.accepted.connect(self.process)
         buttonBox.rejected.connect(self.reject)
 

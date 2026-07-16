@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QListWidget
+from PyQt6.QtWidgets import QListWidget
 
 """
 ContactListWidget has much in common to its superclass, QListWidget, but it was made for a more integrated use with Contactbooks.

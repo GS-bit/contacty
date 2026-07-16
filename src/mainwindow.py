@@ -5,19 +5,22 @@ from finddialog import FindDialog
 from insertiondialog import InsertionDialog
 from functools import partial
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
 	QMainWindow,
 	QStyle,
 	QMenuBar,
 	QMenu,
-	QAction,
 	QFileDialog,
 	QMessageBox
 )
 
-from PyQt5.QtGui import QIcon, QKeySequence
+from PyQt6.QtGui import (
+	QIcon, 
+	QKeySequence,
+	QAction
+)
 
-from PyQt5.QtCore import QSettings
+from PyQt6.QtCore import QSettings
 
 """
 This is, as the name suggests, the main window of the program.
@@ -63,23 +66,23 @@ class MainWindow(QMainWindow):
         """
         These are the actions inside the file menu:
         """
-        newAction = QAction(self.style().standardIcon(getattr(QStyle, "SP_FileIcon")), _('New'), self)
+        newAction = QAction(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_FileIcon")), _('New'), self)
         newAction.triggered.connect(self.newFileEvent)
         newAction.setShortcut(QKeySequence("Ctrl+Shift+N"))
 
-        openAction = QAction(self.style().standardIcon(getattr(QStyle, "SP_DialogOpenButton")), _('Open'), self)
+        openAction = QAction(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_DialogOpenButton")), _('Open'), self)
         openAction.triggered.connect(self.openFileEvent)
         openAction.setShortcut(QKeySequence("Ctrl+O"))
 
-        saveAction = QAction(self.style().standardIcon(getattr(QStyle, "SP_DialogSaveButton")), _('Save'), self)
+        saveAction = QAction(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_DialogSaveButton")), _('Save'), self)
         saveAction.triggered.connect(self.saveFileEvent)
         saveAction.setShortcut(QKeySequence("Ctrl+S"))
 
-        saveAsAction = QAction(self.style().standardIcon(getattr(QStyle, "SP_DialogSaveButton")), _('Save as'), self)
+        saveAsAction = QAction(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_DialogSaveButton")), _('Save as'), self)
         saveAsAction.setShortcut(QKeySequence("Ctrl+Shift+S"))
         saveAsAction.triggered.connect(self.saveFileAsEvent)
 
-        closeAction = QAction(self.style().standardIcon(getattr(QStyle, "SP_DialogCloseButton")), _('Close'), self)
+        closeAction = QAction(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_DialogCloseButton")), _('Close'), self)
         closeAction.triggered.connect(self.close)
         closeAction.setShortcut(QKeySequence("Ctrl+Q"))
 
@@ -90,7 +93,7 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(openAction)
 
         self.openRecentMenu = fileMenu.addMenu(_('Open recent'))
-        self.openRecentMenu.setIcon(self.style().standardIcon(getattr(QStyle, "SP_DialogOpenButton")))
+        self.openRecentMenu.setIcon(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_DialogOpenButton")))
         self.openRecentMenu.aboutToShow.connect(self.openRecentEvent)
         fileMenu.addAction(saveAction)
         fileMenu.addAction(saveAsAction)
@@ -102,49 +105,49 @@ class MainWindow(QMainWindow):
         """
         These are the actions inside the edit menu:
         """
-        self.undoAction = QAction(self.style().standardIcon(getattr(QStyle, "SP_ArrowLeft")), _('Undo'), self)
+        self.undoAction = QAction(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_ArrowLeft")), _('Undo'), self)
         self.undoAction.triggered.connect(self.undoEvent)
         self.undoAction.setShortcut(QKeySequence("Ctrl+Z"))
         self.undoAction.setEnabled(False)
 
-        self.redoAction = QAction(self.style().standardIcon(getattr(QStyle, "SP_ArrowRight")), _('Redo'), self)
+        self.redoAction = QAction(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_ArrowRight")), _('Redo'), self)
         self.redoAction.triggered.connect(self.redoEvent)
         self.redoAction.setShortcut(QKeySequence("Ctrl+Y"))
         self.redoAction.setEnabled(False)
 
-        self.upwardAction = QAction(self.style().standardIcon(getattr(QStyle, "SP_ArrowUp")), _('Move contact upward'), self)
+        self.upwardAction = QAction(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_ArrowUp")), _('Move contact upward'), self)
         self.upwardAction.setShortcut(QKeySequence("Ctrl+U"))
         self.upwardAction.triggered.connect(self.upwardEvent)
         self.upwardAction.setEnabled(False)
 
-        self.downwardAction = QAction(self.style().standardIcon(getattr(QStyle, "SP_ArrowDown")), _('Move contact downward'), self)
+        self.downwardAction = QAction(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_ArrowDown")), _('Move contact downward'), self)
         self.downwardAction.setShortcut(QKeySequence("Ctrl+D"))
         self.downwardAction.triggered.connect(self.downwardEvent)
         self.downwardAction.setEnabled(False)
 
-        self.newContactAction = QAction(self.style().standardIcon(getattr(QStyle, "SP_FileDialogNewFolder")), _('New contact'), self)
+        self.newContactAction = QAction(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_FileDialogNewFolder")), _('New contact'), self)
         self.newContactAction.setShortcut(QKeySequence("Ctrl+N"))
         self.newContactAction.triggered.connect(self.newContactEvent)
 
-        self.editContactAction = QAction(self.style().standardIcon(getattr(QStyle, "SP_FileLinkIcon")), _('Edit contact'), self)
+        self.editContactAction = QAction(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_FileLinkIcon")), _('Edit contact'), self)
         self.editContactAction.setShortcut(QKeySequence("Ctrl+E"))
         self.editContactAction.triggered.connect(self.editContactEvent)
         self.editContactAction.setEnabled(False)
 
-        self.deleteContactAction = QAction(self.style().standardIcon(getattr(QStyle, "SP_DialogDiscardButton")), _('Delete contact'), self)
+        self.deleteContactAction = QAction(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_DialogDiscardButton")), _('Delete contact'), self)
         self.deleteContactAction.setShortcut(QKeySequence("Del"))
         self.deleteContactAction.triggered.connect(self.deleteContactEvent)
         self.deleteContactAction.setEnabled(False)
 
-        self.sortAction = QAction(self.style().standardIcon(getattr(QStyle, "SP_FileDialogListView")), _('Sort contacts'), self)
+        self.sortAction = QAction(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_FileDialogListView")), _('Sort contacts'), self)
         self.sortAction.setShortcut(QKeySequence("Ctrl+R"))
         self.sortAction.triggered.connect(self.sortEvent)
 
-        self.findAction = QAction(self.style().standardIcon(getattr(QStyle, "SP_FileDialogContentsView")), _('Search settings'), self)
+        self.findAction = QAction(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_FileDialogContentsView")), _('Search settings'), self)
         self.findAction.setShortcut(QKeySequence("Ctrl+F"))
         self.findAction.triggered.connect(self.findConfEvent)
 
-        self.insertionConfAction = QAction(self.style().standardIcon(getattr(QStyle, "SP_FileDialogDetailedView")), _('Contact insertion settings'), self)
+        self.insertionConfAction = QAction(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_FileDialogDetailedView")), _('Contact insertion settings'), self)
         self.insertionConfAction.setShortcut(QKeySequence("Ctrl+I"))
         self.insertionConfAction.triggered.connect(self.insertionConfEvent)
 
@@ -170,7 +173,7 @@ class MainWindow(QMainWindow):
         """
         These are the actions inside the help menu:
         """
-        aboutAction = QAction(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation')), _('About'), self)
+        aboutAction = QAction(self.style().standardIcon(getattr(QStyle.StandardPixmap, 'SP_MessageBoxInformation')), _('About'), self)
         aboutAction.triggered.connect(self.aboutEvent)
         helpMenu.addAction(aboutAction)
 

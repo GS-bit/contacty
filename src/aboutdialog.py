@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QDialog,
     QLabel,
     QVBoxLayout,
@@ -6,9 +6,9 @@ from PyQt5.QtWidgets import (
     QTextEdit
 )
 
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
-from PyQt5.QtGui import QPixmap
+from PyQt6.QtGui import QPixmap
 
 from version import Version
 
@@ -25,16 +25,16 @@ class AboutDialog(QDialog):
 
         pixmap = QPixmap("/usr/share/contacty/res/logo.png")
         image = QLabel()
-        image.setAlignment(Qt.AlignCenter)
+        image.setAlignment(Qt.AlignmentFlag.AlignCenter)
         image.setPixmap(pixmap)
 
         v = Version()
         version = QLabel("Contacty v" + v.getVersion())
-        version.setAlignment(Qt.AlignCenter)
+        version.setAlignment(Qt.AlignmentFlag.AlignCenter)
         description = QLabel(_("Contacty is a contact book management system."))
-        description.setAlignment(Qt.AlignCenter)
+        description.setAlignment(Qt.AlignmentFlag.AlignCenter)
         license = QTextEdit()
-        license.setAlignment(Qt.AlignCenter)
+        license.setAlignment(Qt.AlignmentFlag.AlignCenter)
         license.insertPlainText("""This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -51,9 +51,9 @@ You should have received a copy of the GNU General Public License along with thi
         license.setReadOnly(True)
         license.setStyleSheet("text-align: center;")
         copyright = QLabel("Copyright © 2023 - Gabriel Soares")
-        copyright.setAlignment(Qt.AlignCenter)
+        copyright.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        buttonBox = QDialogButtonBox(QDialogButtonBox.Ok, self)
+        buttonBox = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok, self)
         buttonBox.accepted.connect(self.accept)
 
         layout = QVBoxLayout(self)

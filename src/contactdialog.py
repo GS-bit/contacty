@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QDialog,
     QLineEdit,
     QDialogButtonBox,
@@ -26,7 +26,7 @@ class ContactDialog(QDialog):
         self.addInfo.setPlainText(values['info']) # Setting text of additional info text edit
         self.addInfo.setFixedHeight(80)
 
-        buttonBox = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel, self)
+        buttonBox = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel, self)
         buttonBox.accepted.connect(self.check)
         buttonBox.rejected.connect(self.reject)
 

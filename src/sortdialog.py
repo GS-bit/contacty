@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QDialog,
     QDialogButtonBox,
     QFormLayout,
@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import (
     QVBoxLayout
 )
 
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
 """
 SortDialog is a dialog thought to be used for sorting the contacts.
@@ -34,7 +34,7 @@ class SortDialog(QDialog):
         self.attribCmbBox.addItem(_('City'))
         self.attribCmbBox.addItem(_('Additional information'))
 
-        buttonBox = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel, self)
+        buttonBox = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel, self)
         buttonBox.accepted.connect(self.accept)
         buttonBox.rejected.connect(self.reject)
 
@@ -42,7 +42,7 @@ class SortDialog(QDialog):
         layout.addRow(_('Order'), self.sortTypeCmbBox)
         layout.addRow(_('Attribute to consider'), self.attribCmbBox)
         layout.setHorizontalSpacing(20)
-        layout.setAlignment(Qt.AlignCenter)
+        layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.vbox.addLayout(layout)
         self.vbox.addWidget(buttonBox)
