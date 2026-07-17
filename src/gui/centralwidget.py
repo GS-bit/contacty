@@ -14,10 +14,11 @@ from PyQt6.QtWidgets import (
 	QMessageBox
 )
 
-"""
-CentralWidget is the central widget designed for the main window. It contains a ContactListWidget, which is derivated from a QListWidget, a History object, a QLineEdit for searches and some buttons for rapid access (New contact, edit contact, delete contact).
-"""
 class CentralWidget(QWidget): # TODO: seria bom adicionar os shortcuts do mainwindow na busca
+    """
+    CentralWidget is the central widget designed for the main window. It contains a ContactListWidget, which is derivated from a QListWidget, a History object, a QLineEdit for searches and some buttons for rapid access (New contact, edit contact, delete contact).
+    """
+
     def __init__(self, filename):
         super().__init__(None)
 
@@ -53,10 +54,11 @@ class CentralWidget(QWidget): # TODO: seria bom adicionar os shortcuts do mainwi
 
         self.show()
 
-    """
-    It creates the rapid access buttons new, edit and delete contact.
-    """
     def _createButtons(self):
+        """
+        It creates the rapid access buttons new, edit and delete contact.
+        """
+
         self.upwardBtn = QPushButton()
         self.upwardBtn.setIcon(self.style().standardIcon(getattr(QStyle.StandardPixmap, "SP_ArrowUp")))
         self.upwardBtn.clicked.connect(self.moveUpwardEvent)
@@ -88,16 +90,18 @@ class CentralWidget(QWidget): # TODO: seria bom adicionar os shortcuts do mainwi
         self._buttons.addWidget(self.updateContactBtn)
         self._buttons.addWidget(self.deleteContactBtn)
 
-    """
-    It is used to notify the main window about changes on the central widget, so the window can update things in it.
-    """
     def notify(self):
+        """
+        It is used to notify the main window about changes on the central widget, so the window can update things in it.
+        """
+
         self.setWindowTitle(str(int(self.windowTitle()) * (-1)))
 
-    """
-    It decides whether the buttons upward, downward, edit contact and delete contact, all pertaining to the toolbar, shall be enabled or not.
-    """
     def handleButtonsEvent(self):
+        """
+        It decides whether the buttons upward, downward, edit contact and delete contact, all pertaining to the toolbar, shall be enabled or not.
+        """
+
         selected = self.contactListWidget.isSelected()
 
         self.upwardBtn.setEnabled(selected)
@@ -107,10 +111,11 @@ class CentralWidget(QWidget): # TODO: seria bom adicionar os shortcuts do mainwi
 
         self.notify()
 
-    """
-    It moves the currently selected contact upward.
-    """
     def moveUpwardEvent(self):
+        """
+        It moves the currently selected contact upward.
+        """
+
         index = self.contactListWidget.currentIndex()
 
         self._contactbook.moveContact(self.contactListWidget.currentIndex(), True)
@@ -123,10 +128,11 @@ class CentralWidget(QWidget): # TODO: seria bom adicionar os shortcuts do mainwi
 
         self.modified = True
 
-    """
-    It moves the currently selected contact downward.
-    """
     def moveDownwardEvent(self):
+        """
+        It moves the currently selected contact downward.
+        """
+
         index = self.contactListWidget.currentIndex()
 
         self._contactbook.moveContact(index, False)
@@ -139,10 +145,11 @@ class CentralWidget(QWidget): # TODO: seria bom adicionar os shortcuts do mainwi
 
         self.modified = True
 
-    """
-    It adds a new contact into the contactbook.
-    """
     def newContactEvent(self):
+        """
+        It adds a new contact into the contactbook.
+        """
+
         dialog = ContactDialog(self, _("New contact"))
         if dialog.exec():
             data = dialog.getData()
@@ -156,10 +163,11 @@ class CentralWidget(QWidget): # TODO: seria bom adicionar os shortcuts do mainwi
 
             self.modified = True
 
-    """
-    It edits the currently selected contact in the contactbook.
-    """
     def editContactEvent(self):
+        """
+        It edits the currently selected contact in the contactbook.
+        """
+
         index = self.contactListWidget.currentIndex()
 
         dialog = ContactDialog(self, _("Edit contact"), {'name': self._contactbook.getContact(index)['name'], 'phone': self._contactbook.getContact(index)['phone'], 'email': self._contactbook.getContact(index)['email'], 'website': self._contactbook.getContact(index)['website'], 'address': self._contactbook.getContact(index)['address'], 'city': self._contactbook.getContact(index)['city'], 'info': self._contactbook.getContact(index)['info']})
@@ -176,10 +184,11 @@ class CentralWidget(QWidget): # TODO: seria bom adicionar os shortcuts do mainwi
 
             self.modified = True
 
-    """
-    It deletes the currently selected contact in the contactbook.
-    """
     def deleteContactEvent(self):
+        """
+        It deletes the currently selected contact in the contactbook.
+        """
+
         index = self.contactListWidget.currentIndex()
 
         self.history.add("DELETE_CONTACT," + str(index) + "," + str(self._contactbook.getContact(index)['name']) + "," + str(self._contactbook.getContact(index)['phone']) + "," + str(self._contactbook.getContact(index)['email']) + "," + str(self._contactbook.getContact(index)['website']) + "," + str( self._contactbook.getContact(index)['address']) + "," + str(self._contactbook.getContact(index)['city']) + "," + str(self._contactbook.getContact(index)['info']) + "," + str(self._contactbook.getContact(index)['moment_of_creation']))
@@ -193,12 +202,14 @@ class CentralWidget(QWidget): # TODO: seria bom adicionar os shortcuts do mainwi
 
         self.modified = True
 
-    """
-    It sorts the contacts.
-    @param descending: True if descending, False if ascending.
-    @param attrib: the attribute to consider in sorting.
-    """
     def sortEvent(self, descending, attrib):
+        """
+        It sorts the contacts.
+
+        @param descending: True if descending, False if ascending.
+        @param attrib: the attribute to consider in sorting.
+        """
+
         contacts = ""
         for i in range(self._contactbook.numOfContacts()):
             contacts += self._contactbook.newChars(self._contactbook.getContact(i)['name']) + "," + \
@@ -221,10 +232,11 @@ class CentralWidget(QWidget): # TODO: seria bom adicionar os shortcuts do mainwi
 
         self.modified = True
 
-    """
-    It searches for contacts using the text in self.searchLineEdit.
-    """
     def searchEvent(self):
+        """
+        It searches for contacts using the text in self.searchLineEdit.
+        """
+
         indices = self._contactbook.find(self.searchLineEdit.text())
         contacts = []
         for i in indices:
@@ -232,12 +244,15 @@ class CentralWidget(QWidget): # TODO: seria bom adicionar os shortcuts do mainwi
 
         self.contactListWidget.showList(contacts, indices)
 
-    """
-    It reads a contactbook onto the central widget.
-    @param filename: contactbook filename. If it is None, then it means a new contactbook.
-    @return 0 if reading was successful, 1 if it requires a newer Contacty version, 2 if file does not exist and 3 if other error occuried.
-    """
     def read(self, filename):
+        """
+        It reads a contactbook onto the central widget.
+
+        @param filename: contactbook filename. If it is None, then it means a new contactbook.
+
+        @return 0 if reading was successful, 1 if it requires a newer Contacty version, 2 if file does not exist and 3 if other error occuried.
+        """
+
         ret = self._contactbook.readBook(filename)
         if ret == 1:
             QMessageBox.critical(None, _("Error opening file"), _("File could not be open. It was made on a more recent Contacty version which is not compatible with the installed now."), QMessageBox.Ok)
@@ -255,52 +270,60 @@ class CentralWidget(QWidget): # TODO: seria bom adicionar os shortcuts do mainwi
             self.update()
             return 0
 
-    """
-    It saves the contactbook.
-    @param filename: location to save
-    """
     def save(self, filename):
+        """
+        It saves the contactbook.
+
+        @param filename: location to save
+        """
+
         self._contactbook.saveBook(filename)
 
         self.modified = False
 
-    """
-    It undoes the last action made on the contactbook.
-    """
     def undo(self):
+        """
+        It undoes the last action made on the contactbook.
+        """
+
         self.history.undo()
         self.contactListWidget.showContactbook(self._contactbook)
         self.update()
 
         self.notify()
 
-    """
-    It redoes the next action made on the contactbook.
-    """
     def redo(self):
+        """
+        It redoes the next action made on the contactbook.
+        """
+
         self.history.redo()
         self.contactListWidget.showContactbook(self._contactbook)
         self.update()
 
         self.notify()
 
-    """
-    @return False if file is not modified. Otherwise True.
-    """
     def isModified(self):
+        """
+        @return False if file is not modified. Otherwise True.
+        """
+
         return self.modified
 
-    """
-    @return a tuple in the format (isConsideringName, isConsideringPhone, isConsideringEmail, isConsideringWebsite, isConsideringAddress, isConsideringCity, isConsideringInfo, isConsideringSensitive), which indicates what criteria are being followed for searches in the contactbook.
-    """
     def getSearch(self):
+        """
+        @return a tuple in the format (isConsideringName, isConsideringPhone, isConsideringEmail, isConsideringWebsite, isConsideringAddress, isConsideringCity, isConsideringInfo, isConsideringSensitive), which indicates what criteria are being followed for searches in the contactbook.
+        """
+
         return (self._contactbook.search_name, self._contactbook.search_phone, self._contactbook.search_email, self._contactbook.search_website, self._contactbook.search_address, self._contactbook.search_city, self._contactbook.search_info, self._contactbook.sensitive)
 
-    """
-    It sets the criteria to follow for searches in the contactbook.
-    @param data: a tuple in the format (isConsideringName, isConsideringPhone, isConsideringEmail, isConsideringWebsite, isConsideringAddress, isConsideringCity, isConsideringInfo, isConsideringSensitive)
-    """
     def setSearch(self, data):
+        """
+        It sets the criteria to follow for searches in the contactbook.
+
+        @param data: a tuple in the format (isConsideringName, isConsideringPhone, isConsideringEmail, isConsideringWebsite, isConsideringAddress, isConsideringCity, isConsideringInfo, isConsideringSensitive)
+        """
+
         self._contactbook.search_name = data[0]
         self._contactbook.search_phone = data[1]
         self._contactbook.search_email = data[2]
@@ -310,16 +333,19 @@ class CentralWidget(QWidget): # TODO: seria bom adicionar os shortcuts do mainwi
         self._contactbook.search_info = data[6]
         self._contactbook.sensitive = data[7]
 
-    """
-    @return a tuple in the format (descending, attribute), which indicates what criteria are being followed for contact insertions in the contactbook. Descending is a bool telling us if the order is descending or not and the attribute is a string telling us which attribute to consider for sorts.
-    """
     def getInsert(self):
+        """
+        @return a tuple in the format (descending, attribute), which indicates what criteria are being followed for contact insertions in the contactbook. Descending is a bool telling us if the order is descending or not and the attribute is a string telling us which attribute to consider for sorts.
+        """
+
         return (self._contactbook.descending, self._contactbook.attrib)
 
-    """
-    It sets the criteria to follow for contact insertions in the contactbook.
-    @param data: a tuple in the format (descending, attribute). Descending is a bool telling us if the order is descending or not and the attribute is a string telling us which attribute to consider for sorts.
-    """
     def setInsert(self, data):
+        """
+        It sets the criteria to follow for contact insertions in the contactbook.
+
+        @param data: a tuple in the format (descending, attribute). Descending is a bool telling us if the order is descending or not and the attribute is a string telling us which attribute to consider for sorts.
+        """
+
         self._contactbook.descending = data[0]
         self._contactbook.attrib = data[1]

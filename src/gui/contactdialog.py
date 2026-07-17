@@ -9,10 +9,11 @@ from PyQt6.QtWidgets import (
 
 from re import fullmatch
 
-"""
-ContactDialog is a dialog thought to be used for adding/editing contacts.
-"""
 class ContactDialog(QDialog):
+    """
+    ContactDialog is a dialog thought to be used for adding/editing contacts.
+    """
+
     def __init__(self, parent, title="Contacty", values={'name': "", 'phone': "", 'email': "", 'website': "", 'address': "", 'city': "", 'info': ""}):
         super().__init__(parent)
 
@@ -46,10 +47,11 @@ class ContactDialog(QDialog):
         for i in self.lineEdits:
             self.lineEdits[i].setText(values[i])
 
-    """
-    It checks if the contact's data are in apropriate format.
-    """
     def check(self):
+        """
+        It checks if the contact's data are in apropriate format.
+        """
+
         invalidName = False
         invalidPhone = False
         invalidEmail = False
@@ -87,10 +89,11 @@ class ContactDialog(QDialog):
         else:
             self.accept()
 
-    """
-    @return a tuple containg contact's attributes in this order: name, phone, email, website, address, city and info.
-    """
     def getData(self):
+        """
+        @return a tuple containg contact's attributes in this order: name, phone, email, website, address, city and info.
+        """
+
         ret = []
 
         for i in self.lineEdits:

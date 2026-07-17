@@ -12,10 +12,11 @@ from PyQt6.QtGui import QPixmap
 
 from version import Version
 
-"""
-AboutDialog is a dialog about the program, showing its logo, name, purpose, version, copyright and license.
-"""
 class AboutDialog(QDialog):
+    """
+    AboutDialog is a dialog about the program, showing its logo, name, purpose, version, copyright and license.
+    """
+
     def __init__(self, parent):
         super().__init__(parent)
 

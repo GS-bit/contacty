@@ -8,12 +8,14 @@ from PyQt6.QtWidgets import (
 
 from PyQt6.QtCore import Qt
 
-"""
-SortDialog is a dialog thought to be used for sorting the contacts.
-@param parent: parent widget
-@param title: dialog's title
-"""
 class SortDialog(QDialog):
+    """
+    SortDialog is a dialog thought to be used for sorting the contacts.
+
+    @param parent: parent widget
+    @param title: dialog's title
+    """
+
     def __init__(self, parent, title="Contacty"):
         super().__init__(parent)
 
@@ -47,10 +49,11 @@ class SortDialog(QDialog):
         self.vbox.addLayout(layout)
         self.vbox.addWidget(buttonBox)
 
-    """
-    @return a tuple in the format (descending, attrib).
-    """
     def getData(self):
+        """
+        @return a tuple in the format (descending, attrib).
+        """
+
         descending = ""
         if self.sortTypeCmbBox.currentText() == _('Ascending'):
             descending = False

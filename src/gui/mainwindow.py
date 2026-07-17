@@ -22,11 +22,12 @@ from PyQt6.QtGui import (
 
 from PyQt6.QtCore import QSettings
 
-"""
-This is, as the name suggests, the main window of the program.
-@param filename: the filename to open. By default, it is None, which means no file.
-"""
 class MainWindow(QMainWindow):
+    """
+    This is, as the name suggests, the main window of the program.
+    @param filename: the filename to open. By default, it is None, which means no file.
+    """
+
     def __init__(self, filename=None):
         super().__init__()
 
@@ -50,10 +51,11 @@ class MainWindow(QMainWindow):
 
         self.show()
 
-    """
-    It creates the window menu.
-    """
     def _createMenu(self):
+        """
+        It creates the window menu.
+        """
+
         menuBar = QMenuBar(self)
 
         """
@@ -186,11 +188,13 @@ class MainWindow(QMainWindow):
 
         self.setMenuBar(menuBar)
 
-    """
-    It adds the given filename location into the recent files
-    @param filename: the filename
-    """
     def addRecentFile(self, filename):
+        """
+        It adds the given filename location into the recent files
+
+        @param filename: the filename
+        """
+
         keys = self.qsettings.allKeys()
 
         is_in_list = False
@@ -212,11 +216,13 @@ class MainWindow(QMainWindow):
                 self.qsettings.setValue(str(i), self.qsettings.value(str(i-1)))
             self.qsettings.setValue(str(0), filename)
 
-    """
-    It opens the given file
-    @param filename: the filename
-    """
     def openFile(self, filename):
+        """
+        It opens the given file
+
+        @param filename: the filename
+        """
+
         if self.centralWidget.read(filename) == 0:
             self.setWindowTitle("Contacty - " + str(filename))
             self.filename = filename
@@ -230,10 +236,11 @@ class MainWindow(QMainWindow):
     Events for menu:
     """
 
-    """
-    It decides whether the following actions, undo, redo, upward, downward, edit contact and delete contact, all pertaining to edit menu, shall be enabled or not.
-    """
     def handleActionsEvent(self):
+        """
+        It decides whether the following actions, undo, redo, upward, downward, edit contact and delete contact, all pertaining to edit menu, shall be enabled or not.
+        """
+
         self.undoAction.setEnabled(self.centralWidget.history.canUndo())
         self.redoAction.setEnabled(self.centralWidget.history.canRedo())
 
@@ -244,10 +251,11 @@ class MainWindow(QMainWindow):
         self.editContactAction.setEnabled(selected)
         self.deleteContactAction.setEnabled(selected)
 
-    """
-    It creates an empty contacty file and opens it.
-    """
     def newFileEvent(self):
+        """
+        It creates an empty contacty file and opens it.
+        """
+
         self.setWindowTitle(_("Contacty - Untitled"))
         self.filename = None
         self.centralWidget.read(None)
@@ -255,20 +263,23 @@ class MainWindow(QMainWindow):
         self.undoAction.setEnabled(False)
         self.redoAction.setEnabled(False)
 
-    """
-    It enables the user to open a contacty file through a dialog.
-    @param filename: the filename
-    """
     def openFileEvent(self):
+        """
+        It enables the user to open a contacty file through a dialog.
+
+        @param filename: the filename
+        """
+
         filename, tmp = QFileDialog.getOpenFileName(self, _('Open file'), '', _("Contacty files(*.ctcy)"))
 
         if filename != '':
             self.openFile(filename)
 
-    """
-    It is called when the user puts the mouse on open recent action, showing the recent files.
-    """
     def openRecentEvent(self):
+        """
+        It is called when the user puts the mouse on open recent action, showing the recent files.
+        """
+
         self.openRecentMenu.clear()
 
         keys = self.qsettings.allKeys()
@@ -287,19 +298,21 @@ class MainWindow(QMainWindow):
             self.openRecentMenu.insertSeparator(action)
             self.openRecentMenu.addAction(action)
 
-    """
-    It saves the current file. If it is a new file, then self.saveFileAsEvent() is called.
-    """
     def saveFileEvent(self):
+        """
+        It saves the current file. If it is a new file, then self.saveFileAsEvent() is called.
+        """
+
         if self.filename == None:
             self.saveFileAsEvent()
         else:
             self.centralWidget.save(self.filename)
 
-    """
-    It saves the current file as other file through a dialog.
-    """
     def saveFileAsEvent(self):
+        """
+        It saves the current file as other file through a dialog.
+        """
+
         filename, tmp = QFileDialog.getSaveFileName(self, _('Save as'), '', _("Contacty files(*.ctcy)"))
 
         if filename:
@@ -312,68 +325,78 @@ class MainWindow(QMainWindow):
             except:
                 QMessageBox.critical(self, _("Error saving file"), _("File could not be saved."), QMessageBox.Ok)
 
-    """
-    It undoes the last action made on the contactbook.
-    """
     def undoEvent(self):
+        """
+        It undoes the last action made on the contactbook.
+        """
+
         self.centralWidget.undo()
 
-    """
-    It redoes the next action made on the contactbook.
-    """
     def redoEvent(self):
+        """
+        It redoes the next action made on the contactbook.
+        """
+
         self.centralWidget.redo()
 
-    """
-    It shows the sort contact dialog, asking the user if the sort shall be made and how. After the user's answer, the sort is done.
-    """
     def sortEvent(self):
+        """
+        It shows the sort contact dialog, asking the user if the sort shall be made and how. After the user's answer, the sort is done.
+        """
+
         dialog = SortDialog(self, _('Sort contacts'))
         if dialog.exec():
             data = dialog.getData()
 
             self.centralWidget.sortEvent(data[0], data[1])
 
-    """
-    It moves the currently selected contact upward.
-    """
     def upwardEvent(self):
+        """
+        It moves the currently selected contact upward.
+        """
+
         self.centralWidget.moveUpwardEvent()
 
-    """
-    It moves the currently selected contact downward.
-    """
     def downwardEvent(self):
+        """
+        It moves the currently selected contact downward.
+        """
+
         self.centralWidget.moveDownwardEvent()
 
-    """
-    It adds a new contact into the contactbook.
-    """
     def newContactEvent(self):
+        """
+        It adds a new contact into the contactbook.
+        """
+
         self.centralWidget.newContactEvent()
 
-    """
-    It edits the currently selected contact in the contactbook.
-    """
     def editContactEvent(self):
+        """
+        It edits the currently selected contact in the contactbook.
+        """
+
         self.centralWidget.editContactEvent()
 
-    """
-    It deletes the currently selected contact in the contactbook.
-    """
     def deleteContactEvent(self):
+        """
+        It deletes the currently selected contact in the contactbook.
+        """
+
         self.centralWidget.deleteContactEvent()
 
-    """
-    It shows the about dialog.
-    """
     def aboutEvent(self):
+        """
+        It shows the about dialog.
+        """
+
         AboutDialog(self)
 
-    """
-    Function to be called after the user tries to close the main window. If the file was modified, the program will ask the user if he would like to save the changes before closing.
-    """
     def closeEvent(self, event):
+        """
+        Function to be called after the user tries to close the main window. If the file was modified, the program will ask the user if he would like to save the changes before closing.
+        """
+
         if self.centralWidget.isModified():
             reply = QMessageBox.question(self, 'Contacty', _('Would you like to save the changes?'), QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel, QMessageBox.Yes)
 
@@ -387,20 +410,22 @@ class MainWindow(QMainWindow):
         else:
             event.accept()
 
-    """
-    It shows the find dialog, enabling the user to decide how the searches shall be done.
-    """
     def findConfEvent(self):
+        """
+        It shows the find dialog, enabling the user to decide how the searches shall be done.
+        """
+
         dialog = FindDialog(self, self.centralWidget.getSearch(), _('Search settings'))
         if dialog.exec():
             data = dialog.getData()
 
             self.centralWidget.setSearch(data)
 
-    """
-    It shows the insertion dialog, enabling the user to decide how the contact insertions shall be done.
-    """
     def insertionConfEvent(self):
+        """
+        It shows the insertion dialog, enabling the user to decide how the contact insertions shall be done.
+        """
+
         dialog = InsertionDialog(self, self.centralWidget.getInsert(), _('Contact insertion settings'))
         if dialog.exec():
             data = dialog.getData()

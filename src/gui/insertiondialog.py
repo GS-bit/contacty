@@ -9,13 +9,15 @@ from PyQt6.QtWidgets import (
 
 from PyQt6.QtCore import Qt
 
-"""
-InsertionDialog is a dialog thought to be used for setting how contacts shall be inserted.
-@param parent: parent widget
-@param states: a tuple in the format (descending, attrib)
-@param title: dialog's title
-"""
 class InsertionDialog(QDialog):
+    """
+    InsertionDialog is a dialog thought to be used for setting how contacts shall be inserted.
+
+    @param parent: parent widget
+    @param states: a tuple in the format (descending, attrib)
+    @param title: dialog's title
+    """
+
     def __init__(self, parent, states=(False, "moment_of_creation"), title="Contacty"):
         super().__init__(parent)
 
@@ -56,11 +58,13 @@ class InsertionDialog(QDialog):
         self.vbox.addLayout(layout)
         self.vbox.addWidget(buttonBox)
 
-    """
-    @param attrib: the attribute
-    @return the corresponding item index in self.attribCmbBox
-    """
     def attribToIndex(self, attrib):
+        """
+        @param attrib: the attribute
+
+        @return the corresponding item index in self.attribCmbBox
+        """
+
         if attrib == 'moment_of_creation':
             return 0
         elif attrib == 'name':
@@ -78,20 +82,23 @@ class InsertionDialog(QDialog):
         elif attrib == 'info':
             return 7
 
-    """
-    @param order: the order
-    @return the corresponding item index in self.sortTypeCmbBox
-    """
     def orderToIndex(self, order):
+        """
+        @param order: the order
+
+        @return the corresponding item index in self.sortTypeCmbBox
+        """
+
         if order == False:
             return 0
         elif order == True:
             return 1
 
-    """
-    @return a tuple in the format (descending, attrib). Descending is a bool telling us if the order is descending or not and the attribute is a string telling us which attribute to consider for sorts.
-    """
     def getData(self):
+        """
+        @return a tuple in the format (descending, attrib). Descending is a bool telling us if the order is descending or not and the attribute is a string telling us which attribute to consider for sorts.
+        """
+
         descending = self.sortTypeCmbBox.currentText()
         attrib = self.attribCmbBox.currentText()
 

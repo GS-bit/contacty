@@ -23,19 +23,21 @@ import locale, gettext
 from os.path import join
 from version import Version
 
-"""
-It shows the program help on the console.
-"""
 def help():
+	"""
+	It shows the program help on the console.
+	"""
+
 	print("./" + sys.argv[0] + _(" opens Contacty,"))
 	print("./" + sys.argv[0] + _(" [filename] opens Contacty with a file,"))
 	print("./" + sys.argv[0] + _(" --version shows Contacty version,"))
 	print("./" + sys.argv[0] + _(" --help shows this message."))
 
-"""
-It starts the locale.
-"""
 def init_locale():
+	"""
+	It starts the locale.
+	"""
+
 	locale.setlocale(locale.LC_ALL, )
 	(loc, enc) = locale.getlocale()
 

@@ -10,45 +10,53 @@ NEW_CONTACT,[index],[name],[phone],[email],[website],[address],[city],[info]: cr
 EDIT_CONTACT,[index],[current name],[current phone] [current email] [current website] [current address] [current city] [current info] [new name] [new phone] [new email] [new website] [new address] [new city] [new info]: edited contact whose index in the contactbook was given. Current name became new name, current phone new phone, current email new email, current website new website, current address new address, current city new city and current info new info.
 DELETE_CONTACT,[index],[name],[phone],[email],[website],[address],[city],[info],[moment_of_creation]: deleted contact whose index in the contactbook was given, along with its name, phone, email, website, address, city, info and moment of creation.
 SORT,[descending],[attrib],[contact one's name],[contact one's phone],[contact one's email],[contact one's website],[contact one's address],[contact one's city],[contact one's info],[contact one's moment_of_creation][contact two's name],[contact two's phone],[contact one's email],[contact two's website],[contact two's address],[contact two's city],[contact two's info],[contact two's moment_of_creation],...,[contact N's name],[contact N's phone],[contact N's email],[contact N's website],[contact N's address],[contact N's city],[contact N's info],[contact N's moment_of_creation]: sorted a contactbook, descending or not, considering the given attribute attrib. There are N contacts, its information are in the command.
-
-@param contactbook: the contactbook to handle
 """
+
 class History:
+    """"
+    @param contactbook: the contactbook to handle
+    """
+
     def __init__(self, contactbook):
         self.new(contactbook)
 
-    """
-    It adds a command into the list of actions made on the contactbook.
-    @param command: the command
-    """
     def add(self, command):
+        """
+        It adds a command into the list of actions made on the contactbook.
+
+        @param command: the command
+        """
+
         self._history_stack.insert(self._pos, command)
         self._pos += 1
 
         self._history_stack = self._history_stack[:self._pos]
 
-    """
-    @return False if it is not possible to undo the last action made on the contactbook. True otherwise.
-    """
     def canUndo(self):
+        """
+        @return False if it is not possible to undo the last action made on the contactbook. True otherwise.
+        """
+
         if self._pos == 0:
             return False
         else:
             return True
 
-    """
-    @return False if it is not possible to redo the next action made on the contactbook. True otherwise.
-    """
     def canRedo(self):
+        """
+        @return False if it is not possible to redo the next action made on the contactbook. True otherwise.
+        """
+
         if len(self._history_stack) == self._pos:
             return False
         else:
             return True
 
-    """
-    It undoes the last action made on the contactbook.
-    """
     def undo(self):
+        """
+        It undoes the last action made on the contactbook.
+        """
+
         if self.canUndo():
             data = self._history_stack[self._pos-1].split(',')
 
@@ -75,10 +83,11 @@ class History:
 
             self._pos -= 1
 
-    """
-    It redoes the next action made on the contactbook.
-    """
     def redo(self):
+        """
+        It redoes the next action made on the contactbook.
+        """
+
         if self.canRedo():
             data = self._history_stack[self._pos].split(',')
 
@@ -97,11 +106,13 @@ class History:
 
             self._pos += 1
 
-    """
-    It creates a new history stack.
-    @param contactbook: the contactbook to work with
-    """
     def new(self, contactbook):
+        """
+        It creates a new history stack.
+
+        @param contactbook: the contactbook to work with
+        """
+
         self._contactbook = contactbook
         self._history_stack = []
         self._pos = 0  # Position of the user on the self._history_stack.

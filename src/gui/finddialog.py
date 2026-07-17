@@ -10,13 +10,15 @@ from PyQt6.QtWidgets import (
 
 from PyQt6.QtCore import Qt
 
-"""
-FindDialog is a dialog thought to be used for setting how the searchings shall be done.
-@param parent: parent widget
-@param states: a tuple in the format (isNameChecked, isPhoneChecked, isEmailChecked, isWebsiteChecked, isAddressChecked, isCityChecked, isInfoChecked, isCaseChecked)
-@param title: dialog's title
-"""
 class FindDialog(QDialog):
+    """
+    FindDialog is a dialog thought to be used for setting how the searchings shall be done.
+
+    @param parent: parent widget
+    @param states: a tuple in the format (isNameChecked, isPhoneChecked, isEmailChecked, isWebsiteChecked, isAddressChecked, isCityChecked, isInfoChecked, isCaseChecked)
+    @param title: dialog's title
+    """
+
     def __init__(self, parent, states, title="Contacty"):
         super().__init__(parent)
 
@@ -80,19 +82,21 @@ class FindDialog(QDialog):
         self.vbox.addWidget(self.caseCheckbox)
         self.vbox.addWidget(buttonBox)
         
-    """
-    It hinders the user to uncheck all the checkboxes and press okay.
-    """
     def process(self):
+        """
+        It hinders the user to uncheck all the checkboxes and press okay.
+        """
+
         if self.nameCheckbox.checkState() == False and self.phoneCheckbox.checkState() == False and self.emailCheckbox.checkState() == False and self.websiteCheckbox.checkState() == False and self.addressCheckbox.checkState() == False and self.cityCheckbox.checkState() == False and self.infoCheckbox.checkState() == False:
             error = QMessageBox.critical(None, self.title, _("Select at least one contact attribute."), QMessageBox.Ok)
         else:
             self.accept()
 
-    """
-    @return a tuple in the format (isNameChecked, isPhoneChecked, isEmailChecked, isWebsiteChecked, isAddressChecked, isCityChecked, isInfoChecked, isCaseChecked), where each element is a bool.
-    """
     def getData(self):
+        """
+        @return a tuple in the format (isNameChecked, isPhoneChecked, isEmailChecked, isWebsiteChecked, isAddressChecked, isCityChecked, isInfoChecked, isCaseChecked), where each element is a bool.
+        """
+
         isNameChecked = True if self.nameCheckbox.checkState() > 0 else False
         isPhoneChecked = True if self.phoneCheckbox.checkState() > 0 else False
         isEmailChecked = True if self.emailCheckbox.checkState() > 0 else False

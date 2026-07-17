@@ -1,26 +1,31 @@
 from version import Version
 
-"""
-Contactbook stores many contacts, allowing to perform some operations on them.
-"""
+
 class Contactbook:
+	"""
+	Contactbook stores many contacts, allowing to perform some operations on them.
+	"""
+
 	def __init__(self, filename=None):
 		self.readBook(filename) # We start reading the book in filename.
 
-	"""
-	It adds a new contact into self._contacts list.
-	@param name: contact's name
-	@param phone: contact's phone
-	@param email: contact's email
-	@param website: contact's website
-	@param address: contact's address
-	@param city: contact's city
-	@param info: contact's info
-	@param moment_of_creation: contact's moment of creation. If it's "default", then it's the current of moment of creation.
-	@param index: the position of the contact in the self._contacts list. If it's "default", then the contactbook will insert it according to self.descending and self.attrib values. If it's "last", then the contactbook will insert them in the end of the list.
-	@return the position of the newly contact in the list
-	"""
 	def newContact(self, name, phone, email, website, address, city, info, moment_of_creation="default", index="default"):
+		"""
+		It adds a new contact into self._contacts list.
+
+		@param name: contact's name
+		@param phone: contact's phone
+		@param email: contact's email
+		@param website: contact's website
+		@param address: contact's address
+		@param city: contact's city
+		@param info: contact's info
+		@param moment_of_creation: contact's moment of creation. If it's "default", then it's the current of moment of creation.
+		@param index: the position of the contact in the self._contacts list. If it's "default", then the contactbook will insert it according to self.descending and self.attrib values. If it's "last", then the contactbook will insert them in the end of the list.
+
+		@return the position of the newly contact in the list
+		"""
+
 		if moment_of_creation == "default":
 			moment_of_creation = self.cur_momentOfCreation
 
@@ -53,24 +58,28 @@ class Contactbook:
 			self._contacts.insert(index, contact)
 			return self.numOfContacts()
 
-	"""
-	It deletes the contact associated to the passed index from the self._contacts list.
-	@param index: contact's index in self._contact list.
-	"""
 	def deleteContact(self, index):
+		"""
+		It deletes the contact associated to the passed index from the self._contacts list.
+
+		@param index: contact's index in self._contact list.
+		"""
+
 		self._contacts.pop(index)
 
-	"""
-	It edits the contact associated to the passed index from the self._contacts list.
-	@param index: contact's index.
-	@param newName: contact's new name.
-	@param newEmail: contact's new email.
-	@param newWebsite: contact's new website.
-	@param newAddress: contact's new address.
-	@param newCity: contact's new city.
-	@param newInfo: contact's new additional information.
-	"""
 	def editContact(self, index, newName, newPhone, newEmail, newWebsite, newAddress, newCity, newInfo):
+		"""
+		It edits the contact associated to the passed index from the self._contacts list.
+
+		@param index: contact's index.
+		@param newName: contact's new name.
+		@param newEmail: contact's new email.
+		@param newWebsite: contact's new website.
+		@param newAddress: contact's new address.
+		@param newCity: contact's new city.
+		@param newInfo: contact's new additional information.
+		"""
+
 		self._contacts[index]['name'] = newName
 		self._contacts[index]['phone'] = newPhone
 		self._contacts[index]['email'] = newEmail
@@ -79,19 +88,23 @@ class Contactbook:
 		self._contacts[index]['city'] = newCity
 		self._contacts[index]['info'] = newInfo
 
-	"""
-	@param index: contact's index
-	@return contact's dictionary associated to the passed index.
-	"""
 	def getContact(self, index):
+		"""
+		@param index: contact's index
+
+		@return contact's dictionary associated to the passed index.
+		"""
+
 		return self._contacts[index]
 
-	"""
-	It changes the position of the passed contact upward or downard by a step.
-	@param index: contact index in self._contacts list.
-	@param upward: if True, then the movement is upward. Otherwise, downward.
-	"""
 	def moveContact(self, index, upward=True):
+		"""
+		It changes the position of the passed contact upward or downard by a step.
+
+		@param index: contact index in self._contacts list.
+		@param upward: if True, then the movement is upward. Otherwise, downward.
+		"""
+
 		if index == 0 and upward == True:
 			pass
 		elif index == self.numOfContacts()-1 and upward == False:
@@ -103,20 +116,24 @@ class Contactbook:
 			self._contacts[index+h] = self._contacts[index]
 			self._contacts[index] = swap
 
-	"""
-	It sorts the contacts in self._contacts list according to a passed attribute.
-	@param descending: if True, then the sort order is descending. Otherwise, ascending.
-	@param attrib: the attribute
-	"""
 	def sort(self, descending, attrib):
+		"""
+		It sorts the contacts in self._contacts list according to a passed attribute.
+
+		@param descending: if True, then the sort order is descending. Otherwise, ascending.
+		@param attrib: the attribute
+		"""
+
 		self._contacts = sorted(self._contacts, key=lambda d: d[attrib], reverse=descending)
 
-	"""
-	It finds contacts in self._contacts list
-	@param lookfor: the string to search
-	@return a list containing the indices of the found contacts in self._contacts.
-	"""
 	def find(self, lookfor):
+		"""
+		It finds contacts in self._contacts list
+
+		@param lookfor: the string to search
+		@return a list containing the indices of the found contacts in self._contacts.
+		"""
+
 		ret = []
 
 		considering = []
@@ -149,27 +166,31 @@ class Contactbook:
 
 		return ret
 
-	"""
-	@return the number of contacts in self._contacts list.
-	"""
 	def numOfContacts(self):
+		"""
+		@return the number of contacts in self._contacts list.
+		"""
+
 		return len(self._contacts)
 
-	"""
-	Clear the contactbook.
-	"""
 	def clear(self):
+		"""
+		Clear the contactbook.
+		"""
+
 		self._contacts = []
 
 	"""
 	The following two functions, self.newChars and self.oldChars, deal with string manipulation. They are important for .ctcy files, and the reason is above the definition of functions self.saveBook and self.readBook
 	"""
 
-	"""
-	@param string: the string
-	@return the string with commas replaced for \c and new lines replaced for literal \n.
-	"""
 	def newChars(self, string):
+		"""
+		@param string: the string
+
+		@return the string with commas replaced for \c and new lines replaced for literal \n.
+		"""
+
 		ret = string.replace('\\c', '\\\c')
 		ret = ret.replace(',', '\\c')
 
@@ -177,11 +198,12 @@ class Contactbook:
 
 		return ret
 
-	"""
-	@param string: the string
-	@return the string with \c replaced for commas and literal \n's replaced for new lines.
-	"""
 	def oldChars(self, string):
+		"""
+		@param string: the string
+
+		@return the string with \c replaced for commas and literal \n's replaced for new lines.
+		"""
 		ret = string.replace('\\n', '\n')
 
 		ret = ret.replace('\\c', ',')
@@ -209,12 +231,15 @@ class Contactbook:
 	Because attributes might have new line and commas, functions self.newChars and self.oldChars are very useful.
 	"""
 
-	"""
-	It saves the self._contacts list on the passed filename.
-	@param filename: the filename
-	@return 0 if file could be read. 1 if the version is not compatible.
-	"""
 	def saveBook(self, filename):
+		"""
+		It saves the self._contacts list on the passed filename.
+
+		@param filename: the filename
+
+		@return 0 if file could be read. 1 if the version is not compatible.
+		"""
+
 		with open(filename, "w") as f:
 			f.write("CONTROL\n")
 			v = Version()
@@ -236,12 +261,15 @@ class Contactbook:
 			for i in self._contacts:
 				f.write(str(i['moment_of_creation']) + "," + self.newChars(i['name']) + "," + i['phone'] + "," + i['email'] + "," + i['website'] + "," + self.newChars(i['address']) + "," + self.newChars(i['city']) + "," + self.newChars(i['info']) + '\n')
 
-	"""
-	It reads the contact book stored on the passed filename.
-	@param filename: the filename. If it is None, then it means a new contact book.
-	@return 0 if it was successful, 1 if it requires a newer Contacty version, 2 if the file does not exist and 3 if other error occuried.
-	"""
 	def readBook(self, filename):
+		"""
+		It reads the contact book stored on the passed filename.
+
+		@param filename: the filename. If it is None, then it means a new contact book.
+
+		@return 0 if it was successful, 1 if it requires a newer Contacty version, 2 if the file does not exist and 3 if other error occuried.
+		"""
+
 		"""
 		Initial procedures:
 		"""
